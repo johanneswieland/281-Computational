@@ -1,12 +1,12 @@
 # Econ 281: Computational Tools in Macroeconomics
 
 ### Instructors
-Juan Herreño 
-jherrenolopera@ucsd.edu
+Juan Herreño \
+jherrenolopera@ucsd.edu \
 Office Hours: XXX (Atkinson Hall XXX)
 
-Johannes Wieland
-jfwieland@ucsd.edu
+Johannes Wieland \
+jfwieland@ucsd.edu \
 Office Hours: XXX (Supercomputer Center 197E)
 
 ### Course Description
