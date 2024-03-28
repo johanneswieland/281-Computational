@@ -14,7 +14,9 @@ Many modern macroeconomic models are be complicated. They feature dynamics, unce
 
 ### Software
 
-We will be using both Matlab and Python. We use both languages because certain packages that are helpful for solving macro models are only written in one of them. You are welcome to use other languages as well, but we will be less familiar with them. 
+We will be using both Matlab and Python. Make sure they working and up-to-date on your personal computer before the first class. We want to avoid wasting time installing and troubleshooting software.
+
+We use both languages because certain packages that are helpful for solving macro models are only written in one of them. You are welcome to use other languages as well, but we will be less familiar with them. 
 
 ### Homework 
 
