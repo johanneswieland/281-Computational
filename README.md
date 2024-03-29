@@ -42,9 +42,9 @@ We expect students who audit the class to participate and do the homework. If yo
 
 1. **Let's get started on the computer** (JW)
 
-    Dynamic programming, why does it work. value function iteration, functional approximation.
+    Dynamic programming and why it works. Value function iteration, functional approximation, interpolation.
 
-    *Homework*: Cake-eating problem with and without depreciation. Finite vs inifinite horizon. Basic consumption problem.
+    *Homework*: Cake-eating problem with and without depreciation. Finite vs infinite horizon. Basic consumption problem.
 
 2. **Policy function iteration** (JW)
 
