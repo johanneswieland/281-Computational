@@ -78,7 +78,7 @@ We expect students who audit the class to participate and do the homework. If yo
 
 7. **Sequence Space	with Representative Agent** (JW)
 
-    NK model
+    NK model, DAGs
 
     *Homework*: TANK + TANK and RA equivalence
 
