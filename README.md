@@ -14,10 +14,10 @@ Many modern macroeconomic models are be complicated. They feature dynamics, unce
 
 ### Software
 
-We will be using both Matlab, Python, and Jupyter notebooks. Make sure they working and up-to-date on your personal computer before the first class. 
+We will be using both Matlab, Python, and Jupyter notebooks. Make sure they working and up-to-date on your personal computer before the first class. We want to avoid wasting time installing and troubleshooting software.
 1. Matlab: [get it from UCSD](https://blink.ucsd.edu/technology/computers/software-acms/available-software/matlab.html)
 2. Python and Jupyter notebooks: [use Anaconda distribution](https://www.anaconda.com/download/)  
-For effective use of Python and Jupyter notebooks we suggest an editor such as Sublime or Visual Studio Code. We want to avoid wasting time installing and troubleshooting software.
+For effective use of Python and Jupyter notebooks we suggest an editor such as Sublime or Visual Studio Code. 
 
 We use both languages because certain packages that are helpful for solving macro models are only written in one of them. You are welcome to use other languages as well, but we will be less familiar with them. 
 
