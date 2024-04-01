@@ -7,14 +7,17 @@ Office Hours: XXX (Atkinson Hall XXX)
 
 Johannes Wieland \
 jfwieland@ucsd.edu \
-Office Hours: XXX (Supercomputer Center 197E)
+Office Hours: Thursday, 3:30pm-4:30pm (SDSC 197E)
 
 ### Course Description
 Many modern macroeconomic models are be complicated. They feature dynamics, uncertainty, and market incompleteness. The objective of this class is to make you familiar with tools to solve this class of models. Much of the class will be hands-on, like a "lab." We will only scratch the surface of computational methods that serve as a stepping stone for solving more specialized models you might encounter in the future.
 
 ### Software
 
-We will be using both Matlab, Python, and Jupyter notebooks. Make sure they working and up-to-date on your personal computer before the first class. For effective use of Python and Jupyter notebooks we suggest an editor such as Sublime or Visual Studio Code. We want to avoid wasting time installing and troubleshooting software.
+We will be using both Matlab, Python, and Jupyter notebooks. Make sure they working and up-to-date on your personal computer before the first class. 
+1. Matlab: [get it from UCSD](https://blink.ucsd.edu/technology/computers/software-acms/available-software/matlab.html)
+2. Python: [use Anaconda distribution](https://www.anaconda.com/download/)
+For effective use of Python and Jupyter notebooks we suggest an editor such as Sublime or Visual Studio Code. We want to avoid wasting time installing and troubleshooting software.
 
 We use both languages because certain packages that are helpful for solving macro models are only written in one of them. You are welcome to use other languages as well, but we will be less familiar with them. 
 
