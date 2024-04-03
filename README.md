@@ -3,7 +3,7 @@
 ### Instructors
 Juan Herreño \
 jherrenolopera@ucsd.edu \
-Office Hours: XXX (Atkinson Hall XXX)
+Office Hours: Monday, 1:00pm-2:00pm (Atkinson Hall 6125)
 
 Johannes Wieland \
 jfwieland@ucsd.edu \
