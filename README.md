@@ -57,13 +57,13 @@ We expect students who audit the class to participate and do the homework. If yo
 
 3. **Continuous time** (JH)
 
-    Continuous time limit, HJB equation (solve giving a price), Market clearing. Targeting first moments.
+    Continuous time limit, HJB equation (solve giving a price). Simulate given a price. 
 
-    *Homework*: Comparison to discrete time. Same problem. Let delta t go to zero in discrete time. Choose your cake.
+    *Homework*: Compare your solution with discrete time. Repeat the exercise of the lab using the implicit method. Replace an endowment with profits from a production function. Choose your production technology.
 
 4. **Integration and EGM** (JH)
 
-    Introduce risk, Expectations, EGM. Simulate given a price.
+    Introduce risk, Expectations, EGM. Simulate given a price. Market clearing. Targeting first moments.
 
     *Homework*: Get a distribution of agents of the consumption saving problem.
 
