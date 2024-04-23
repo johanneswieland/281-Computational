@@ -63,9 +63,9 @@ We expect students who audit the class to participate and do the homework. If yo
 
 4. **Integration and EGM** (JH)
 
-    Introduce risk, Expectations, EGM. Simulate given a price. Market clearing. Targeting first moments.
+    Introduce risk, Expectations. Simulate given a price. Targeting moments.
 
-    *Homework*: Get a distribution of agents of the consumption saving problem.
+    *Homework*: Simulate starting from policy functions with idiosyncratic risk. Target "complicated" moments. Compute aggregate demand for an asset.
 
 5. **Bewley and Aiyagari Models** (JH)
 
