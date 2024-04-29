@@ -69,9 +69,9 @@ We expect students who audit the class to participate and do the homework. If yo
 
 5. **Bewley and Aiyagari Models** (JH)
 
-    How to clear a market and put everything together, simple indirect inference exercise.
+    How to clear a market and put everything together. Shift aggregate supply and demand.
 
-    *Homework*: Solve the Aiyagari model
+    *Homework*: Solve a model with heterogeneous firms and adjustment costs.
 
 6. **Reiter method** (JH)
 
