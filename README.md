@@ -71,13 +71,13 @@ We expect students who audit the class to participate and do the homework. If yo
 
     How to clear a market and put everything together. Shift aggregate supply and demand.
 
-    *Homework*: Solve a model with heterogeneous firms and adjustment costs.
+    *Homework*: Solve a model with heterogeneous returns.
 
 6. **Reiter method** (JH)
 
     Include aggregate disturbances to a state-space representation problem
 
-    *Homework*: Solve Aiyagari with aggregate shocks
+    *Homework*: Solve a heterogeneous firm model with aggregate shocks.
 
 7. **Sequence Space	with Representative Agent** (JW)
 
