@@ -1,1 +1,1 @@
-solution to the Aiyagari model HW
+solution to the Aiyagari model HW. Solution by Eduardo.
