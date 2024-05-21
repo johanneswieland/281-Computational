@@ -362,9 +362,9 @@ Juan Herre\~{n}o & Johannes Wieland \\
         \item Given $D_0$, $D_{t+1}(e',K)$ are also functions of $\{r_t,w_t\}_{t\ge 0 }$.
         \item Aggregate capital holdings are therefore also a function of $\{r_t,w_t\}_{t\ge 0 }$.:
         \begin{align*}
-        	\mathcal{K}_t(\{r_s,w_s\}_{s\ge 0 }) = \sum_e \int_{k_{-}} k_t^*(e,k_{-}) D_t(e,dk_{-})
+        	\mathbm{A}_t(\{r_s,w_s\}_{s\ge 0 }) = \sum_e \int_{k_{-}} k_t^*(e,k_{-}) D_t(e,dk_{-})
         \end{align*}
-        \item The function $\mathcal{K}_t$ maps an aggregate sequence $\{r_t,w_t\}_{t\ge 0 }$ into another aggregate sequence $\{K_t\}_{t\ge 0}$.
+        \item The function $\mathbm{A}_t$ maps an aggregate sequence $\{r_t,w_t\}_{t\ge 0 }$ into another aggregate sequence $\{K_t\}_{t\ge 0}$.
         \item The dimensionality of this problem is the length of the sequence $T$.
 	\end{itemize}
 \end{frame}
@@ -385,9 +385,7 @@ Juan Herre\~{n}o & Johannes Wieland \\
         \end{align*}
         \item Market for capital has to clear
         \begin{align*}
-        	&H_t(\bm{K},\bm{Z})  \\
-        	&\equiv \mathcal{K}_t\left( \mathbf{r}, \mathbf{w} \right)\\
-        	&\qquad  - K_t = 0
+        	&H_t(\bm{K},\bm{Z})  \equiv \mathbm{A}_t\left( \mathbf{r}, \mathbf{w} \right)   - K_t = 0
         \end{align*}
 	\end{itemize}
 \end{frame}
@@ -401,8 +399,8 @@ Juan Herre\~{n}o & Johannes Wieland \\
     \frametitle{IRFs}
     \begin{itemize}
         \item You know how to compute $\nabla_{\mathbf{K}}\pmb{\mathbf{r}}, \nabla_{\mathbf{U}}\pmb{\mathbf{r}}, \nabla_{\bm{K}}\pmb{\mathbf{w}}, \nabla_{\bm{U}}\pmb{\mathbf{w}}$ from firm block.
-        \item You know how to compute $\nabla_{\mathbf{K}}\pmb{\mathbf{H}}, \nabla_{\mathbf{U}}\pmb{\mathbf{H}}$ from the market clearing block.
-        \item How do we compute $\nabla_{\mathbf{r}}\mathcal{K}$ and $\nabla_{\mathbf{w}}\mathcal{K}$?
+        % \item You know how to compute $\nabla_{\mathbf{K}}\pmb{\mathbf{H}}, \nabla_{\mathbf{U}}\pmb{\mathbf{H}}$, $\nabla_{\mathbf{K}}\pmb{\mathbf{H}}, \nabla_{\mathbf{U}}\pmb{\mathbf{H}}$ from the market clearing block.
+        \item How do we compute $\nabla_{\mathbf{r}}\mathbf{A}$ and $\nabla_{\mathbf{w}}\mathbf{A}$?
 	\end{itemize}
 \end{frame}
 
@@ -467,7 +465,7 @@ Juan Herre\~{n}o & Johannes Wieland \\
     	\end{align*}
         \item Aggregate policy functions using the distribution to get outcome
         \begin{align*}
-    		\mathcal{Y}_t^s &= (\bm{y}_t^s)'\bm{D}_t^s 
+    		\mathbf{Y}_t^s &= (\bm{y}_t^s)'\bm{D}_t^s 
     	\end{align*}
         \item Repeat for $s=0,...,T$ to get all columns of $\mathcal{J}$.
 %        \item Repeat for all other aggregate sequences (e.g., $r_t$).
@@ -478,6 +476,7 @@ Juan Herre\~{n}o & Johannes Wieland \\
 \begin{frame}
     \frametitle{Tasks}
     \begin{itemize}
+        \item Solve for steady state in consumption problem.
         \item Get the first column of $\mathcal{J}_r^{\mathcal{K}}$.
         \item Get the second column of $\mathcal{J}_r^{\mathcal{K}}$.
 	\end{itemize}
@@ -497,7 +496,7 @@ Juan Herre\~{n}o & Johannes Wieland \\
     		\end{cases}
     	\end{align*}
     	\item Policy functions at $t$ for shock at $t+s$ the same as policy function at $0$ for shock at $s$. 
-        \item[$\Rightarrow$] Policy functions need to be solved backwards only once starting with a shock at $T-1$.
+        \item[$\Rightarrow$] Policy functions need to be solved backwards only once starting with a shock at $T-1$. (vs $T$ times in brute force.)
 %        
         \item For any time after the shock, the policy functions are the same as in steady state.
         \item Key: policy function cannot directly depend on distribution of agents
@@ -524,68 +523,98 @@ Juan Herre\~{n}o & Johannes Wieland \\
         \begin{align*}
     		\nu_t = \begin{cases}
     			\eta_t^{s-t} & t<s \\
-    			1 & t= s \\
-    			0 & t>s
+    			\bm{\epsilon}^0 & t \ge s \\
     		\end{cases}\\
     	\end{align*}
         takes on the same expected values and realized values as $\bm{\epsilon}^s$.
+        \item Next step: build Jacobian based on $\bm{v}^s$ rather than $\bm{\epsilon}^s$.
 	\end{itemize}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Advantage of Fake News}
+    \frametitle{Algorithm: Efficient forward step}
     \begin{itemize}
-    	\item Given linearization only care about expected values and realized values.
-    	\item Rather than compute IRFs to $\bm{\epsilon}^s$ for $s\ge 0$, we need IRFs to fake news shocks $\eta^s$ for $s\ge 0$ and contemporaneous shock $\bm{\epsilon}^0$.
-    	\item This is more efficient because $\eta^s$ and $\bm{\epsilon}^0$ share a common feature: the policy function only changes in the period the shock becomes known and then reverts. From then on we only need to solve the distribution forward using steady state policy functions.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Algorithm: Fake News}
-    \begin{itemize}
-%    	\item Idea: exploit how columns in the Jacobian relate to one another.
-        \item Define the difference in outcomes at $t$ for shock at $s$ versus outcomes at $t-1$ for shock at $s-1$.
-        \begin{align*}
-        	\mathcal{F}_{t,s}dx \equiv d\mathcal{Y}_{t}^{s} - d\mathcal{Y}_{t-1}^{s-1}
+    	\item If we return to steady state and the shock is infinitesimal,
+    	\begin{align*}
+            F_{t,s}dx & = dY_{t}^{s} - dY_{t-1}^{s-1} \\
+                &= \bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s 
         \end{align*}
-        \item Not zero: policy function the same, but distribution different.
-        \item Lemma:
-        \begin{align*}
-        	\mathcal{F}_{t,s}dx = \bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s
-        \end{align*}
-        \item Policy functions the same. The only difference is the initial distribution.
-        \item To a first order, the distribution affects outcomes as if all agents followed their steady state policy functions.
+        \item Thought experiment: shock happens at $s-1$ and we are interested in outcomes $t=0,...,T-1$. How is this different from a shock that happens at $s$ on outcomes $t=1,...,T$?
+        \item From earlier we know the policy functions are the same.
+        \item The only difference is the distribution of agents: $\bm{D}_ss$ in the first case and $\bm{D}_1^s$ in the second.
+        \item To a first order, this only affects outcomes as if all agents followed their steady state policy functions.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Fake News Interpretation}
-     \begin{align*}
-        	\mathcal{F}_{t,s}dx = \bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s
-        \end{align*}
     \begin{itemize}
-        \item Agents at $t=0$ were told a shock will happen at $t=s$.
-        \item They change their optimal policy rules resulting in a new distribution of outcomes at $t=1$, $d\bm{D}_1^s$.
-        \item At $t=1$ agents learn (to their surprise) that the shock does not happen.
-        \item So all policy rules revert to steady state.
-        \item But the distribution has not reverted to steady state and will affect economic outcomes.
-        \item $\bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s$ traces out IRF from $t=1$ onwards to a first order.
-        \item Requires only one updating step in solving $d\bm{D}_1^s$
+    	\item For a given $s$, $F_{t,s}$ can be interpreted as the impulse response to a ``date-s fake news shock'': a shock to date $s$ announced at date $0$, and retracted at date $1$.
+    	\item At date $0$, agents react to the announcement, which leads to the distribution $\bm{D}_1^s$.
+    	\item After the announcement is retracted, they revert to steady-state policies, so the effect on output at all dates $t\ge 1$ is $\bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s$.
 	\end{itemize}
 \end{frame}
+
+
+
+
+% \begin{frame}
+%     \frametitle{Advantage of Fake News}
+%     \begin{itemize}
+%     	\item Given linearization only care about expected values and realized values.
+%     	\item Rather than compute IRFs to $\bm{\epsilon}^s$ for $s\ge 0$, we need IRFs to fake news shocks $\eta^s$ for $s\ge 0$ and contemporaneous shock $\bm{\epsilon}^0$.
+%     	\item This is more efficient because $\eta^s$ and $\bm{\epsilon}^0$ share a common feature: the policy function only changes in the period the shock becomes known and then reverts. From then on we only need to solve the distribution forward using steady state policy functions.
+% 	\end{itemize}
+% \end{frame}
+
+
+% \begin{frame}
+%     \frametitle{Algorithm: Fake News}
+%     \begin{itemize}
+% %    	\item Idea: exploit how columns in the Jacobian relate to one another.
+%         \item Define the difference in outcomes at $t$ for shock at $s$ versus outcomes at $t-1$ for shock at $s-1$.
+%         \begin{align*}
+%         	\mathcal{F}_{t,s}dx \equiv d\mathcal{Y}_{t}^{s} - d\mathcal{Y}_{t-1}^{s-1}
+%         \end{align*}
+%         \item Not zero: policy function the same, but distribution different.
+%         \item Lemma:
+%         \begin{align*}
+%         	\mathcal{F}_{t,s}dx = \bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s
+%         \end{align*}
+%         \item Policy functions the same. The only difference is the initial distribution.
+%         \item To a first order, the distribution affects outcomes as if all agents followed their steady state policy functions.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%     \frametitle{Fake News Interpretation}
+%      \begin{align*}
+%         	\mathcal{F}_{t,s}dx = \bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s
+%         \end{align*}
+%     \begin{itemize}
+%         \item Agents at $t=0$ were told a shock will happen at $t=s$.
+%         \item They change their optimal policy rules resulting in a new distribution of outcomes at $t=1$, $d\bm{D}_1^s$.
+%         \item At $t=1$ agents learn (to their surprise) that the shock does not happen.
+%         \item So all policy rules revert to steady state.
+%         \item But the distribution has not reverted to steady state and will affect economic outcomes.
+%         \item $\bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s$ traces out IRF from $t=1$ onwards to a first order.
+%         \item Requires only one updating step in solving $d\bm{D}_1^s$
+% 	\end{itemize}
+% \end{frame}
 
 
 \begin{frame}
     \frametitle{Fake News Matrix}
     \begin{itemize}
+        \item Define the expectation vector as
+        \begin{align*}
+            \mathcal{E}_t =  (\Lambda_{ss})^{t}\bm{y}_{ss}
+        \end{align*}
     	\item Define the fake news matrix as
     	\begin{align*}
     		\mathcal{F}_{t,s}dx \equiv \begin{cases}
     			d\mathcal{Y}_0^s & t=0 \\
-    			\bm{y}_{ss}' (\Lambda_{ss}')^{t-1}d\bm{D}_1^s & t\ge 1
+    			\mathcal{E}_{t-1}' d\bm{D}_1^s & t\ge 1
     		\end{cases}
     	\end{align*}
         \item Then the Jacobian of $h$ is given by
@@ -640,69 +669,82 @@ Juan Herre\~{n}o & Johannes Wieland \\
         	\item Policy functions are exactly the same.
         	\item Only difference is that the distribution at $t$ is different from $t-1$, which is captured by the fake news term. 
         \end{itemize}
-       	\item The objects we need to calculate this are:
-       	\begin{enumerate}
-       		\item Solve consumer problem backwards once for $T$ periods to get policy functions $\{\bm{y}^{T-1}_{T-1-s},\bm{\Lambda}^{T-1}_{T-1-s}\}_{s=0}^{T-1}$.
-       		\item Get $\{d\mathcal{Y}_0^s\}_{s=0}^T$ by combining policy functions for $s=0,...,T$ with steady state distribution.
-       		\item Compute $d\bm{D}_1^s$ using steady state distribution and $s=0,...,T$ policy functions.
-       	\end{enumerate}
+       	% \item The objects we need to calculate this are:
+       	% \begin{enumerate}
+       	% 	\item Solve consumer problem backwards once for $T$ periods to get policy functions $\{\bm{y}^{T-1}_{T-1-s},\bm{\Lambda}^{T-1}_{T-1-s}\}_{s=0}^{T-1}$.
+       	% 	\item Get $\{d\mathcal{Y}_0^s\}_{s=0}^T$ by combining policy functions for $s=0,...,T$ with steady state distribution.
+       	% 	\item Compute $d\bm{D}_1^s$ using steady state distribution and $s=0,...,T$ policy functions.
+       	% \end{enumerate}
        	\item[$\Rightarrow$] Very small number of steps / computations to get all of the Jacobian and therefore the IRFs.
 	\end{itemize}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Result}
-    \centering
-    \includegraphics[scale=0.5]{figures/ABRSFIG2.png}
+    \frametitle{Tasks}
+    \begin{enumerate}
+        \item Compute backward step once. 
+        \item Compute the first row of the Jacobian / FNM $\{d\mathcal{Y}_0^s\}_{s=0}^T$.
+        \item Compute $d\bm{D}_1^s$ using steady state distribution and $s=0,...,T$ policy functions.
+        \item Compose the fake news matrix.
+        \item Compose the Jacobian using using the fake news matrix.
+        \item Combine matrices to get $\mathbf{H}_{\mathbf{U}}$ and $\mathbf{H}_{\mathbf{K}}$
+        \item Compute IRF to AR(1) productivity shocks with $\rho_a = 0.9$ at $t=0$, $t=10$.
+    \end{enumerate}
 \end{frame}
 
 
-
-\begin{frame}
-    \frametitle{Dimensionality Reduction}
-    \begin{itemize}
-    	\item The dimensionality of the problem is $T \times \text{number of variables}$, but with large $T$ and many variables this can get complicated.
-    	\item Solution: substitute out for some variables, like we did for $r_t,w_t$ earlier. 
-    	\item This can be automated by writing the model in separate blocks.
-    	\item E.g., firm block $r_t = \alpha  Z_t K_{t-1}^{\alpha-1} N_t^{1-\alpha} - \delta $ and $ w_t = (1-\alpha) Z_t K_{t-1}^{\alpha} N_t^{-\alpha}$ can be used to solved out for $r_t,w_t$ as a function of $Z_t,K_t,N_t$.
-    	\item Each block takes inputs (e.g., $Z_t,K_t,N_t$) and computes outputs ($r_t,w_t$).
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Directed Acyclical Graph}
-    \begin{center}
-    	\includegraphics[scale=0.5]{figures/ABRSFIG3.png}
-    \end{center}
-    \begin{itemize}
-    	\item The computer can do the substitution if we write the model as a Directed Acyclical Graph (DAG).
-    	\item Dimensionality $T \times 2$ even though we have 4 endogenous variables.
-    	\item Restriction: cannot have cycle. E.g., if $K$ was not an unknown, the graph would be cylical.
-        \item Always(?) possible to write model as DAG.
-%        \item Computer does the sorting and substituting out.
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Result}
+%     \centering
+%     \includegraphics[scale=0.5]{figures/ABRSFIG2.png}
+% \end{frame}
 
 
-\begin{frame}
-    \frametitle{More}
-    \begin{itemize}
-    	\item How to pick $T$: check if higher $T$ matters for IRFs. Authors recommend $T=300-1000$.
-    	\item Estimation:  Can compute moments and likelihood quickly from Jacobians. Limit is how quickly you can recompute Jacobians given new parameter values.   	
-    	\item Non-linear perfect foresight dynamics.
-	\end{itemize}
-\end{frame}
 
-\begin{frame}
-    \frametitle{More}
-    \begin{center}
-    	\includegraphics[scale=0.4]{figures/ABRSFIG7.png}
-    \end{center}
-    \begin{itemize}
-    	\item See also McKay and Wieland (2022, Econometrica) for how to implement a ZLB.
-    \end{itemize}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Dimensionality Reduction}
+%     \begin{itemize}
+%     	\item The dimensionality of the problem is $T \times \text{number of variables}$, but with large $T$ and many variables this can get complicated.
+%     	\item Solution: substitute out for some variables, like we did for $r_t,w_t$ earlier. 
+%     	\item This can be automated by writing the model in separate blocks.
+%     	\item E.g., firm block $r_t = \alpha  Z_t K_{t-1}^{\alpha-1} N_t^{1-\alpha} - \delta $ and $ w_t = (1-\alpha) Z_t K_{t-1}^{\alpha} N_t^{-\alpha}$ can be used to solved out for $r_t,w_t$ as a function of $Z_t,K_t,N_t$.
+%     	\item Each block takes inputs (e.g., $Z_t,K_t,N_t$) and computes outputs ($r_t,w_t$).
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%     \frametitle{Directed Acyclical Graph}
+%     \begin{center}
+%     	\includegraphics[scale=0.5]{figures/ABRSFIG3.png}
+%     \end{center}
+%     \begin{itemize}
+%     	\item The computer can do the substitution if we write the model as a Directed Acyclical Graph (DAG).
+%     	\item Dimensionality $T \times 2$ even though we have 4 endogenous variables.
+%     	\item Restriction: cannot have cycle. E.g., if $K$ was not an unknown, the graph would be cylical.
+%         \item Always(?) possible to write model as DAG.
+% %        \item Computer does the sorting and substituting out.
+% 	\end{itemize}
+% \end{frame}
+
+
+% \begin{frame}
+%     \frametitle{More}
+%     \begin{itemize}
+%     	\item How to pick $T$: check if higher $T$ matters for IRFs. Authors recommend $T=300-1000$.
+%     	\item Estimation:  Can compute moments and likelihood quickly from Jacobians. Limit is how quickly you can recompute Jacobians given new parameter values.   	
+%     	\item Non-linear perfect foresight dynamics.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%     \frametitle{More}
+%     \begin{center}
+%     	\includegraphics[scale=0.4]{figures/ABRSFIG7.png}
+%     \end{center}
+%     \begin{itemize}
+%     	\item See also McKay and Wieland (2022, Econometrica) for how to implement a ZLB.
+%     \end{itemize}
+% \end{frame}
 
 
 
