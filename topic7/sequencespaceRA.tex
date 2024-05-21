@@ -125,57 +125,7 @@ Juan Herre\~{n}o & Johannes Wieland \\
 	 \end{itemize}
  \end{frame}
 
- \begin{frame}
-	\frametitle{Neoclassical Growth Model}
-	\begin{itemize}
-		\item Euler equation:
-		\begin{align*}
-			C_t^{-\gamma}  = \beta E_t C_{t+1}^{-\gamma} (1-\delta+MPK_{t+1}^k)
-		\end{align*}
-		\item Law of motion for capital:
-		\begin{align*}
-			K_{t} = I_t + (1-\delta)K_{t-1}
-		\end{align*}
-		\item Production function:
-		\begin{align*}
-			Y_t = Z_t K_{t-1}^\alpha
-		\end{align*}
-		\item Return to capital:
-		\begin{align*}
-			MPK_{t+1}^k = \alpha Z_{t+1} K_t^{\alpha-1}
-		\end{align*}
-		\item Market clearing:
-		\begin{align*}
-			Y_t = C_t + I_t
-		\end{align*}
-	 \end{itemize}
- \end{frame}
-
- \begin{frame}
-	\frametitle{Neoclassical Growth Model Linearized}
-	\begin{itemize}
-		\item Euler equation:
-		\begin{align*}
-			-\gamma \hat{c}_t &= -\gamma \E_t \hat{c}_{t+1} + (1 - \beta(1-\delta)) \E_t \hat{mpk}_{t+1}
-		\end{align*}
-		\item Law of motion for capital:
-		\begin{align*}
-			\hat{k}_{t} =\delta \hat{\iota}_{t} + (1-\delta)\hat{k}_{t-1}
-		\end{align*}
-		\item Production function:
-		\begin{align*}
-			\hat{y}_t = \hat{z}_t + \alpha \hat{k}_{t-1}
-		\end{align*}
-		\item Return to capital:
-		\begin{align*}
-			\hat{mpk}_{t+1} =  \hat{z}_{t+1} + (\alpha-1) \hat{k}_t 
-		\end{align*}
-		\item Market clearing:
-		\begin{align*}
-			\hat{y}_t = s_c \hat{c}_t +(1-s_c) \hat{\iota}_t
-		\end{align*}
-	 \end{itemize}
- \end{frame}
+ 
 
 \begin{frame}
 	\frametitle{Solving State Space}
@@ -265,12 +215,101 @@ Juan Herre\~{n}o & Johannes Wieland \\
 \end{frame}
 
 \begin{frame}
+	\frametitle{Neoclassical Growth Model}
+	\begin{itemize}
+		\item Euler equation:
+		\begin{align*}
+			C_t^{-\gamma}  = \beta E_t C_{t+1}^{-\gamma} (1-\delta+MPK_{t+1}^k)
+		\end{align*}
+		\item Law of motion for capital:
+		\begin{align*}
+			K_{t} = I_t + (1-\delta)K_{t-1}
+		\end{align*}
+		\item Production function:
+		\begin{align*}
+			Y_t = Z_t K_{t-1}^\alpha
+		\end{align*}
+		\item Return to capital:
+		\begin{align*}
+			MPK_{t+1}^k = \alpha Z_{t+1} K_t^{\alpha-1}
+		\end{align*}
+		\item Market clearing:
+		\begin{align*}
+			Y_t = C_t + I_t
+		\end{align*}
+	 \end{itemize}
+ \end{frame}
+
+ \begin{frame}
+	\frametitle{Neoclassical Growth Model Linearized}
+	\begin{itemize}
+		\item Euler equation:
+		\begin{align*}
+			-\gamma \hat{c}_t &= -\gamma \E_t \hat{c}_{t+1} + (1 - \beta(1-\delta)) \E_t \hat{mpk}_{t+1}
+		\end{align*}
+		\item Law of motion for capital:
+		\begin{align*}
+			\hat{k}_{t} =\delta \hat{\iota}_{t} + (1-\delta)\hat{k}_{t-1}
+		\end{align*}
+		\item Production function:
+		\begin{align*}
+			\hat{y}_t = \hat{z}_t + \alpha \hat{k}_{t-1}
+		\end{align*}
+		\item Return to capital:
+		\begin{align*}
+			\hat{mpk}_{t+1} =  \hat{z}_{t+1} + (\alpha-1) \hat{k}_t 
+		\end{align*}
+		\item Market clearing:
+		\begin{align*}
+			\hat{y}_t = s_c \hat{c}_t +(1-s_c) \hat{\iota}_t
+		\end{align*}
+	 \end{itemize}
+ \end{frame}
+ 
+  \begin{frame}
+	\frametitle{Neoclassical Growth Model Linearized}
+	\begin{itemize}
+		\item Euler equation:
+		\begin{align*}
+			 s_c\hat{c}_t &=  s_c \hat{c}_{t+1} -\gamma^{-1} s_c(1 - \beta(1-\delta)) [\hat{z}_{t+1} + (\alpha-1) \hat{k}_t]
+		\end{align*}
+		\item Production function:
+		\begin{align*}
+			s_c \hat{c}_t   &= \hat{z}_t + [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t-1} - (1-s_c)\delta^{-1}\hat{k}_{t} \\
+			s_c \hat{c}_{t+1}   &= \hat{z}_{t+1} + [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t} - (1-s_c)\delta^{-1}\hat{k}_{t+1} \\
+			s_c \hat{c}_t - s_c \hat{c}_{t+1} &= \hat{z}_t + [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t-1} - (1-s_c)\delta^{-1}\hat{k}_{t} \\
+			& -\hat{z}_{t+1} - [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t} + (1-s_c)\delta^{-1}\hat{k}_{t+1} \\
+			&= \hat{z}_t + [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t-1} -\hat{z}_{t+1}  \\
+			&  - [\alpha + (1-s_c)\delta^{-1}(2-\delta)] \hat{k}_{t} + (1-s_c)\delta^{-1}\hat{k}_{t+1} \\
+		\end{align*}
+	 \end{itemize}
+ \end{frame}
+ 
+   \begin{frame}
+	\frametitle{Neoclassical Growth Model Linearized}
+	\begin{itemize}
+		\item Euler equation:
+		\begin{align*}
+%			 \hat{z}_t + [\alpha + \delta^{-1}(1-\delta)] \hat{k}_{t-1} - (1-s_c)\delta^{-1}\hat{k}_{t} - s_c \hat{c}_{t+1} + \gamma^{-1} s_c(1 - \beta(1-\delta)) [\hat{z}_{t+1} + (\alpha-1) \hat{k}_t] &= 0 \\
+			 &\hat{z}_t + [\alpha + (1-s_c)\delta^{-1}(1-\delta)] \hat{k}_{t-1}   + \left[\gamma^{-1} s_c(1 - \beta(1-\delta))-1\right] \hat{z}_{t+1} \\
+			 &- \left[\gamma^{-1} s_c(1 - \beta(1-\delta))(1-\alpha) + (1-s_c)\delta^{-1} + \alpha + (1-s_c)\delta^{-1}(1-\delta)\right] \hat{k}_t \\
+			 &  + (1-s_c)\delta^{-1}\hat{k}_{t+1}
+			 &= 0
+		\end{align*}
+%		\item Production function:
+%		\begin{align*}
+%			s_c \hat{c}_t   = \hat{z}_t + [\alpha + \delta^{-1}(1-\delta)] \hat{k}_{t-1} - (1-s_c)\delta^{-1}\hat{k}_{t}
+%		\end{align*}
+	 \end{itemize}
+ \end{frame}
+
+\begin{frame}
 	\frametitle{Neoclassical Growth Model Linearized}
 	\begin{itemize}
 		\item Repeated substitution:
 		\begin{align*}
 			0=H_t(\mathbf{\hat{K}},\mathbf{\hat{Z}})&\equiv  \gamma\left[\alpha + (1-s_c)\frac{1-\delta}{\delta}\right]\hat{k}_{t-1} \\
-			&-\gamma \left[\alpha + (1-s_c)\frac{1}{\delta}+(1-\alpha)s_c(1 - \beta(1-\delta))\right]\hat{k}_{t} \\
+			&-\gamma \left[\alpha + (1-s_c)\frac{2-\delta}{\delta}+(1-\alpha)s_c(1 - \beta(1-\delta))\right]\hat{k}_{t} \\
 			&   +\gamma  (1-s_c)\frac{1}{\delta}\hat{k}_{t+1} \\
 			&+ \gamma \hat{z}_t \\
 			& -\left[\gamma-s_c(1 - \beta(1-\delta)) \right]  \hat{z}_{t+1} 
