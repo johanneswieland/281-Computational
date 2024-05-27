@@ -1,0 +1,322 @@
+\documentclass[english,xcolor=svgnames]{beamer}
+
+
+\input{../Templates/teachingslidesbeamer.tex}
+
+
+
+\begin{document}
+
+\title{Fixed Cost Models}
+\vspace{1cm}
+\author[shortname]{
+\begin{tabular}{cc}
+Juan Herre\~{n}o & Johannes Wieland \\ 
+\end{tabular}\\
+}
+
+
+
+\date{UCSD, Spring \the\year}
+
+\setbeamertemplate{footline}{}
+\makebeamertitle
+\setbeamertemplate{footline}[frame number]{}
+
+\addtocounter{framenumber}{-1}
+
+
+
+%\begin{frame}
+%\frametitle[alignment=center]{Reminders}
+%\begin{enumerate}
+%	\item First project draft due May 1.
+%	\item Participation.
+%\end{enumerate}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]{
+\setbeamertemplate{footline}{}
+  \frame<beamer>{ 
+
+    \frametitle{Outline}   
+
+    \tableofcontents[currentsection,hideallsubsections] 
+  }
+\setbeamertemplate{footline}[frame number]{}
+\addtocounter{framenumber}{-1}
+}
+
+\AtBeginSubsection[]{
+\setbeamertemplate{footline}{}
+  \frame<beamer>{ 
+
+    \frametitle{Outline}   
+
+    \tableofcontents[currentsection,currentsubsection] 
+  }
+  \setbeamertemplate{footline}[frame number]{}
+  \addtocounter{framenumber}{-1}
+}
+
+
+
+\setbeamertemplate{footline}{}
+\begin{frame}
+\frametitle{Outline}   
+\tableofcontents[hideallsubsections] 
+\end{frame}
+\addtocounter{framenumber}{-1}
+\setbeamertemplate{footline}[frame number]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Fixed Cost Models}
+    \begin{itemize}
+        \item Lots of behavior at the micro level is lumpy: buying houses, cars, setting prices, investment, information acquisition.
+        \item Fixed cost models naturally give rise to such lumpiness. 
+        \item Fixed cost models are hard to solve because they are non-convex, non-differentiable, and in GE have to carry distribution around.
+        \item But lots of interesting economics: state-dependence, size-dependence, policy targeting.
+        \item Today we will see how to solve these models within SSJ routines.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fixed Cost Models: Examples}
+    \begin{itemize}
+        \item Does lumpy price setting behavior matter? lots from Alvarez-Lippi; Auclert, Rigato, Rognlie, Straub (2024).
+        \item Do fixed cost frictions matter? Kahn-Thomas, Winberry (2021), Koby-Wolf (2020), Bailey-Blanco (2021).
+        \item Lumpy durables and monetary transmission: McKay and Wieland (2021, 2022).
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Baseline FC Model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Environment}
+    \begin{itemize}
+        \item Liquid assets $a$
+        \item Durable stock $d$
+        \item Nondurable consumption $c$
+        \item Income $y$
+        \item Real rate $r$
+        \item Depreciation rate $\delta$
+        \item Fixed cost $f$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Constraints}
+    \begin{itemize}
+        \item Budget constraint if adjusting:
+        \begin{align*}
+            \frac{a'}{1+r} +c'+ p d' = a + (1-\delta)(1-f)pd + y \equiv x_{adj}
+        \end{align*}
+        \item Budget constraint if not adjusting with $d'= (1-\delta)d$
+        \begin{align*}
+            \frac{a'}{1+r}+c' = a + y \equiv x_{noadj}
+        \end{align*}
+        \item Borrowing constraint
+        \begin{align*}
+            a'\ge 0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Value Functions}
+    \begin{itemize}
+        \item Let the value function be
+        \begin{align*}
+            V(y,d,a,\epsilon) = \max\{V^{adj}(y,d,a) + \epsilon^{adj}, V^{noadj}(y,d,a) + \epsilon^{noadj} \}
+        \end{align*}
+        \begin{itemize}
+            \item $\epsilon^i$ are drawn from a Gumbell distribution with standard deviation $\sigma_V\frac{\pi}{\sqrt{6}}$,\footnote{https://eml.berkeley.edu/choice2/ch3.pdf}.
+        \end{itemize}
+        Define the post-adjustment value function as
+        \begin{align*}
+            W(y,d',a') \equiv E_y \tilde{V}(y',d',a')
+        \end{align*}
+        \item Value from adjusting and not adjusting:
+        \begin{align*}
+            V^{adj}(y,d,a)&=\max_{c'+d'+\frac{a'}{1+r}\le x_{adj}}[\psi \ln c' +(1-\psi) \ln d' + W(y,d',a'), \\
+            V^{noadj}(y,d,a)&=\max_{c'+\frac{a'}{1+r}\le x_{noadj}}[\psi \ln c' +(1-\psi) \ln (1-\delta)d + W(y,(1-\delta)d,a')]\}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adjustment Probabilities and Expected Values}
+    \begin{itemize}
+        \item The probability of adjustment is
+        \begin{align*}
+            adjust(y,d,a) = \frac{\exp\{(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V\}}{1+\exp\{(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V\}}
+        \end{align*}
+        \item The distribution of $V$ is
+        \begin{align*}
+            Prob[V\le x] &= Prob[\epsilon^{adj}\le x - V^{adj}(y,d,a)] \\
+            &\times Prob[\epsilon^{noadj}\le x - V^{noadj}(y,d,a)]\\
+            % &= \exp\{-\exp[ -(x-V^{adj}(y,d,a))/\sigma_V]\}\exp\{-\exp[- (x-V^{noadj}(y,d,a))/\sigma_V]\} \\
+            % &= \exp\{-\exp[ -(x-V^{adj}(y,d,a))/\sigma_V]-\exp[- (x-V^{noadj}(y,d,a))/\sigma_V]\} \\
+            % &= \exp\{-\exp[ -x/\sigma_V](\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V])\} \\
+            &= \exp\{-\exp[ -(x - \sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]\\
+            &+\exp[V^{noadj}(y,d,a)/\sigma_V]\})/\sigma_V]\} 
+        \end{align*}
+        \item The expected value is,
+        \begin{align*}
+            \tilde{V}(y,d,a) &\equiv E_{\epsilon} V(y,d,a,\epsilon) \\
+            % &=\sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\} + \sigma_V\gamma \\
+            % &=\sigma_V\log (\exp[ V^{noadj}(y,d,a)/\sigma_V]\{1+\exp[(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V]\}) + \sigma_V\gamma \\
+            % &=\sigma_V\{ V^{noadj}(y,d,a)/\sigma_V + \log\{1+\exp[(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V]\} + \sigma_V\gamma \\
+            % &=\sigma_V\{ V^{noadj}(y,d,a)/\sigma_V + (V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V - \log adjust(y,d,a) \} + \sigma_V\gamma\\
+            % &=V^{adj}(y,d,a) - \sigma_V  \log adjust(y,d,a) + \sigma_V\gamma \\
+            &=V^{noadj}(y,d,a) - \sigma_V  \log noadjust(y,d,a) + \sigma_V\gamma 
+        \end{align*}
+        where $\gamma\approx 0.5772$ is the Euler-Mascheroni constant. If $\sigma_V\rightarrow0$, then
+        \begin{align*}
+            \tilde{V}(y,d,a) &= \max\{V^{adj}(y,d,a), V^{noadj}(y,d,a) \} 
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{No Adjustment Problem}
+    \begin{itemize}
+        \item Break up into sequential problem of choosing $c'$, $a'$ given $d'$. Then choose $d'$.
+        \item For given choice of $d'$:
+        \begin{align*}
+            V^{noadj}(y,n,m) &= \max_{c',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta W(y',d',a')] \\
+            d' &= n \\
+            a' &= \left[m - c'    \right] \\
+            a' &\ge 0
+        \end{align*}
+        where $m \ge 0$.
+        \item First order conditions:
+        \begin{align*}
+            V_m^{noadj}(y,n,m) &= \beta W_a(y',d',a') + \zeta \\
+            V_n^{noadj}(y,n,m) &=\frac{(1-\psi)}{d'} + \beta W_d(y',d',a') \\
+            \frac{\psi}{c'} &= \beta W_a(y',d',a')  + \zeta 
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{EGM}
+    \begin{itemize}
+        \item We are given an initial guess $W_a(y',d',a')$.
+        \item First, assume borrowing constraint is not binding and solve for $c'$ in 
+        \begin{align*}
+            \frac{\psi}{c'} &= \beta  W_a(y',d',a') 
+        \end{align*}
+        \item Then calculate implied cash on hand
+        \begin{align*}
+            m = c' + a' 
+        \end{align*}
+        \item The problem is not necessarily concave, so there may be multiple combinations of $(c',a')$ that map into the same grid point $m$.
+        \begin{itemize}
+            \item In this case we have to check which solution yields highest utility and discard the others.
+            \item The "func\_upper\_envelop.py" function performs this task.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{EGM}
+    \begin{itemize}
+        \item Interpolate the decision rules from the $m$ grid onto the grid for $a$.
+        \item Then check if implied solution for $a'$ violates the borrowing constraint. If so implement borrowing constrained solution $a'=0$ and $c' = m$.
+        \item Combining the two solutions yields the policy functions
+        \begin{align*}
+            c^{noadj}(y,n,m), a^{noadj}(y,n,m)
+        \end{align*}
+        \item The no adjustment solutions use $n=(1-\delta)d$ and $m=a +y$
+        \begin{align*}
+            &c^{noadj}(y,(1-\delta)d,m) \\
+            &a^{noadj}(y,(1-\delta)d,m) \\
+            &d^{noadj}=(1-\delta)d
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Adjustment Problem}
+    \begin{itemize}
+        \item Given some amount of cash on hand $x$:
+        \begin{align*}
+            V^{adj}(y,x) &= \max_{d'} V^{noadj}(y,d',m') \\
+            m' &= x+y-pd'  \\
+            m' &\ge 0
+        \end{align*}
+        \item FOC
+        \begin{align*}
+            V_x^{adj}(y,x) &= V_m^{noadj}(y,d',m') + \kappa \\
+            V_n^{noadj}(y,d',m') &= p V_m^{noadj}(y,d',m') + \kappa
+        \end{align*}
+        \item Constraint will never be binding so $\kappa=0$. 
+        \item Combine with keep FOC to get
+        \begin{align*}
+            p\frac{\psi}{c^{noadj}(y,d',m')} &=   \frac{1-\psi}{d'}  + \beta W_d(y,d',a') 
+        \end{align*}
+        \item Again must solve for upper envelope given non-concavity.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Adjustment Solution}
+    \begin{itemize}
+        \item This yields adjustment solutions
+        \begin{align*}
+            c^{adj}(y,x), a^{adj}(y,x), d^{adj}(y,x)
+        \end{align*}
+        and a value function
+        \begin{align*}
+            V^{adj}(y,x) &= \psi \ln c^{adj}(y,x) +(1-\psi) \ln d^{adj}(y,x) \\
+            &+ \beta W(y',d^{adj}(y,x),a^{adj}(y,x)) 
+        \end{align*}
+        \item We interpolate onto the existing grid using $x=a+(1-\delta)(1-f)pd$ to get
+        \begin{align*}
+            c^{adj}(y,d,a), a^{adj}(y,d,a), d^{adj}(y,d,a)
+        \end{align*}
+        and value function
+        \begin{align*}
+            V^{adj}(y,d,a) &= \psi \ln c^{adj}(a,d,y) +(1-\psi) \ln d^{adj}(a,d,y) + \beta W(y',d^{adj}(a,d,y),a^{adj}(a,d,y)) 
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Combined Problem}
+    \begin{itemize}
+        \item Get policy functions by combining adjust and no-adjust solutions.
+        \begin{align*}
+            c'(y,d,a) &= adjust(a,d,y)c^{adj}(a,d,y) + (1-adjust(a,d,y))c^{noadj}(a,d,y) \\
+            a'(y,d,a) &= adjust(a,d,y)a^{adj}(a,d,y) + (1-adjust(a,d,y))a^{noadj}(a,d,y) \\
+            d'(y,d,a) &= adjust(a,d,y)d^{adj}(a,d,y) + (1-adjust(a,d,y))d^{noadj}(a,d,y) 
+        \end{align*}
+    \end{itemize}
+\end{frame}
+        
+
+
+
+
+\end{document}
