@@ -94,7 +94,7 @@ We expect students who audit the class to participate and do the homework. If yo
 
 9. **Applications** (JH/JW)
 
-    TBD
+    JW: fixed cost models
 
 10. **Student Presentations**
 
